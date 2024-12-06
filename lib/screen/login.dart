@@ -1,6 +1,7 @@
 import 'package:fis_demo/untils/color.dart';
+import 'package:fis_demo/untils/responsive.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -14,118 +15,155 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   bool _isObscure = true;
   bool _isChecked = false;
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    final responsive = ResponsiveHelper(context);
     return Scaffold(
+      backgroundColor: hexToColor('#F4F8FB'),
+      resizeToAvoidBottomInset: true,
       body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset('assets/images/logo.png'),
-              const SizedBox(
-                height: 16,
-              ),
-              Text(
-                'FIS INSIGHT PORTAL',
-                style: TextStyle(
-                    color: hexToColor('#335271'),
-                    fontSize: 26,
-                    fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(
-                height: 8,
-              ),
-              SizedBox(
-                width: 200,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Container(
-                      width: 50,
-                      height: 6,
-                      color: Colors.blue,
-                    ),
-                    Container(
-                      width: 50,
-                      height: 6,
-                      color: Colors.orange,
-                    ),
-                    Container(
-                      width: 50,
-                      height: 6,
-                      color: Colors.green,
-                    ),
-                  ],
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+              vertical: responsive.screenHeight * 0.02,
+              horizontal: responsive.screenWidth * 0.1,
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  'assets/images/fpt.png',
+                  width: responsive.screenWidth * 0.5,
                 ),
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              Text(
-                'ĐĂNG NHẬP HỆ THỐNG',
-                style: TextStyle(
-                    color: hexToColor('#ff9e24'),
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              Form(
-                child: Column(
+                const SizedBox(
+                  height: 24,
+                ),
+                Text(
+                  'FIS INSIGHT PORTAL',
+                  style: TextStyle(
+                      color: hexToColor('#335271'),
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(
+                  height: 12,
+                ),
+                SizedBox(
+                  width: responsive.screenWidth * 0.48,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Container(
+                        width: 50,
+                        height: 4,
+                        color: Colors.blue,
+                      ),
+                      Container(
+                        width: 50,
+                        height: 4,
+                        color: Colors.orange,
+                      ),
+                      Container(
+                        width: 50,
+                        height: 4,
+                        color: Colors.green,
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                Text(
+                  'ĐĂNG NHẬP HỆ THỐNG',
+                  style: TextStyle(
+                      color: hexToColor('#ff9e24'),
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                Column(
                   children: [
-                    TextFormField(
+                    TextField(
+                      controller: _usernameController,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8), // Bo góc
-                          borderSide: BorderSide.none, // Loại bỏ viền
+                          borderRadius: BorderRadius.circular(8),
+                          borderSide: BorderSide.none,
                         ),
-                        labelText: 'Tài Khoản',
+                        hintText: 'Tài Khoản',
+                        hintStyle: TextStyle(
+                          fontSize: 15.5,
+                          color: hexToColor('#375474'),
+                          fontWeight: FontWeight.w500,
+                        ),
                         filled: true,
                         fillColor: hexToColor('#e7eaec'),
                         prefixIcon: Icon(
-                          Icons.account_box,
+                          Icons.person,
                           size: 30,
                           color: hexToColor('#b1bcc7'),
                         ),
+                        contentPadding: const EdgeInsets.symmetric(
+                          vertical: 16,
+                          horizontal: 50,
+                        ),
                       ),
-                      obscureText: _isObscure,
+                      textAlign: TextAlign.center,
                     ),
                     const SizedBox(
                       height: 16,
                     ),
-                    TextFormField(
+                    TextField(
+                      controller: _passwordController,
+                      obscureText: _isObscure,
                       decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                            borderSide: BorderSide.none,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                          borderSide: BorderSide.none,
+                        ),
+                        hintText: 'Mật Khẩu',
+                        hintStyle: TextStyle(
+                          fontSize: 15.5,
+                          color: hexToColor('#375474'),
+                          fontWeight: FontWeight.w500,
+                        ),
+                        filled: true,
+                        fillColor: hexToColor('#e7eaec'),
+                        prefixIcon: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 14, vertical: 14),
+                          child: FaIcon(
+                            FontAwesomeIcons.lock,
+                            size: 25,
+                            color: hexToColor('#b1bcc7'),
                           ),
-                          labelText: 'Mật Khẩu',
-                          filled: true,
-                          fillColor: hexToColor('#e7eaec'),
-                          prefixIcon: Icon(
-                            Icons.lock,
+                        ),
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            _isObscure
+                                ? Icons.visibility
+                                : Icons.visibility_off,
                             size: 30,
                             color: hexToColor('#b1bcc7'),
                           ),
-                          suffixIcon: IconButton(
-                            icon: Icon(
-                              _isObscure
-                                  ? Icons.visibility
-                                  : Icons.visibility_off,
-                              size: 30,
-                              color: hexToColor('#b1bcc7'),
-                            ),
-                            onPressed: () {
-                              setState(() {
-                                _isObscure = !_isObscure;
-                              });
-                            },
-                          )),
-                      obscureText: _isObscure,
+                          onPressed: () {
+                            setState(() {
+                              _isObscure = !_isObscure;
+                            });
+                          },
+                        ),
+                        contentPadding: EdgeInsets.symmetric(
+                          vertical: responsive.screenHeight * 0.01,
+                          horizontal: responsive.screenWidth * 0.02,
+                        ),
+                      ),
+                      textAlign: TextAlign.center,
                     ),
                     Row(
                       children: [
@@ -150,6 +188,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           'Ghi nhớ đăng nhập',
                           style: TextStyle(
                             fontSize: 16,
+                            fontStyle: FontStyle.italic,
                             color: hexToColor('#FF9435'),
                           ),
                         ),
@@ -194,22 +233,25 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     const SizedBox(
-                      height: 16,
+                      height: 10,
                     ),
                     Image.asset(
                       'assets/images/logo2.png',
-                      width: 250,
-                      height: 150,
+                      width: responsive.screenWidth * 0.8,
+                      height: responsive.screenHeight * 0.22,
+                    ),
+                    const SizedBox(
+                      height: 6,
                     ),
                     Text(
-                      'Copyright 2019, FPT IS',
+                      'Copyright© 2019, FPT IS',
                       style:
-                          TextStyle(fontSize: 16, color: hexToColor('#CED5DD')),
+                          TextStyle(fontSize: 14, color: hexToColor('#BEC4C8')),
                     ),
                   ],
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
